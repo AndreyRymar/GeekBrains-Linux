@@ -1,0 +1,48 @@
+1. Потоки ввода/вывода. Создать файл, используя команду echo. Используя команду cat, прочитать содержимое каталога etc,
+ ошибки перенаправить в отдельный файл.
+
+622 echo sdfkjnkjdsgkjdsnf > err_file
+623 cat err_file
+624 cat /etc/ 2> err_file
+625 cat err_file
+626 cat /etc/ 2>> err_file
+627 cat err_file
+
+2. Конвейер (pipeline). Использовать команду cut на вывод длинного списка каталога, чтобы отобразить только права
+ доступа к файлам. Затем отправить в конвейере этот вывод на sort и uniq, чтобы отфильтровать все повторяющиеся строки.
+
+628 ls -la | cut -d " " -f 1
+629 ls -la | cut -d " " -f 1 | grep -v итого
+630 ls -la | cut -d " " -f 1 | grep -v итого | sort
+631 ls -la | cut -d " " -f 1 | grep -v итого | sort | uniq
+
+3. Управление процессами.) Изменить конфигурационный файл службы SSH: /etc/ssh/sshd_config, отключив аутентификацию по
+ паролю PasswordAuthentication no. Выполните рестарт службы systemctl restart sshd (service sshd restart), верните
+  аутентификацию по паролю, выполните reload службы systemctl reload sshd (services sshd reload). В чём различие между
+   действиями restart и reload? Создайте файл при помощи команды cat > file_name, напишите текст и завершите
+    комбинацией ctrl+d. Какой сигнал передадим процессу?
+632 cd .ssh/
+633 ls -la
+634 ssh-keygen
+635 cp id_rsa.pub authorized_keys
+636 ls -la
+    2 scp andrey@192.168.1.13:~/.ssh/id_rsa gb30062021.rsa
+    3 ssh -i .\gb30062021.rsa andrey@192.168.1.13
+637 sudo nano /etc/ssh/sshd_config
+638 sudo systemctl restart sshd
+639 sudo nano /etc/ssh/sshd_config
+640 sudo systemctl reload sshd
+# при restart полностью выключается служба и запускается заново, а при reload служба не выключается, а
+#   подгружает новый конфигурационный файл
+641 ls -la
+642 cat > my_file_name
+643 cat my_file_name
+# при комбинации ctrl+d передаем сигнал EOF = end of file
+
+4. Сигналы процессам. Запустите mc. Используя ps, найдите PID процесса, завершите процесс, передав ему сигнал 9.
+644 mc
+645 ps -efl | grep mc
+646 kill -9 4469
+647 ps -efl | grep mc
+648 history
+andrey@ubuntu:~$
